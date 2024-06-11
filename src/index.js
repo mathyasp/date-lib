@@ -47,28 +47,8 @@ class D {
     return this._date.getSeconds();
   }
 
-  format(mask = 'Y-M-D H:I:S') {
-    const formattedChar = {
-      'Y': this.year,
-      'y': this.yr < 10 ? '0' + this.yr : this.yr,
-      'M': this.month,
-      'm': this.mon,
-      'D': this.date < 10 ? '0' + this.date : this.date,
-      'd': this.date,
-      'L': this.day,
-      'l': this.dy,
-      '#': this.getOrdinal(this.date),
-      'H': this.hours < 10 ? '0' + this.hours : this.hours,
-      'h': this.hours,
-      'I': this.mins < 10 ? '0' + this.mins : this.mins,
-      'i': this.mins,
-      'S': this.secs < 10 ? '0' + this.secs : this.secs,
-      's': this.secs
-    }
-    return mask.split('').map(char => formattedChar[char] || char).join('');
-  }
-
-  getOrdinal(n) {
+  get ordinal() {
+    let n = this.date;
     if (n >= 11 && n <= 13) {
         return n + 'th';
     }
@@ -83,9 +63,63 @@ class D {
         return n + 'th';
     }
   }
+
+  format(mask = 'Y-M-D H:I:S') {
+    const formattedChar = {
+      'Y': this.year,
+      'y': this.yr < 10 ? '0' + this.yr : this.yr,
+      'M': this.month,
+      'm': this.mon,
+      'D': this.date < 10 ? '0' + this.date : this.date,
+      'd': this.date,
+      'L': this.day,
+      'l': this.dy,
+      '#': this.ordinal,
+      'H': this.hours < 10 ? '0' + this.hours : this.hours,
+      'h': this.hours,
+      'I': this.mins < 10 ? '0' + this.mins : this.mins,
+      'i': this.mins,
+      'S': this.secs < 10 ? '0' + this.secs : this.secs,
+      's': this.secs
+    }
+    return mask.split('').map(char => formattedChar[char] || char).join('');
+  }
+
+  when() {
+    const now = new Date();
+
+    let diffYears = Math.abs(now.getFullYear() - this._date.getFullYear());
+    let diffMonths = Math.abs(now.getMonth() - this._date.getMonth());
+    let diffDays = Math.abs(now.getDate() - this._date.getDate());
+    let diffHours = Math.abs(now.getHours() - this._date.getHours());
+    let diffMinutes = Math.abs(now.getMinutes() - this._date.getMinutes());
+    let diffSeconds = Math.abs(now.getSeconds() - this._date.getSeconds());
+
+    let future = now < this._date;
+
+    let result = '';
+    if (diffYears !== 0) {
+      result += `${diffYears} years `;
+    }
+    if (diffMonths !== 0) {
+      result += `${diffMonths} months `;
+    }
+    if (diffDays !== 0) {
+      result += `${diffDays} days `;
+    }
+    if (diffHours !== 0) {
+      result += `${diffHours} hours `;
+    }
+    if (diffMinutes !== 0) {
+      result += `${diffMinutes} minutes `;
+    }
+    if (diffSeconds !== 0) {
+      result += `${diffSeconds} seconds `;
+    }
+
+    return result + (future ? 'from now' : 'ago');
+  }
 }
 
-
-const d = new D();
-console.log(d.format());
-console.log(d.format('Y-m-d'));
+const d = new D('2027-01-01T12:00:00Z');
+console.log(d.when());
