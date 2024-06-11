@@ -1,3 +1,8 @@
+![NPM Version](https://img.shields.io/npm/v/convenient-date-lib)
+![NPM License](https://img.shields.io/npm/l/convenient-date-lib)
+![npm bundle size](https://img.shields.io/bundlephobia/min/convenient-date-lib)
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/mathyasp/string-lib)
+
 <a name="Convenient Date Library"></a>
 
 ## Convenient Date Library
