@@ -46,17 +46,46 @@ class D {
   get secs() {
     return this._date.getSeconds();
   }
+
+  format(mask = 'Y-M-D H:I:S') {
+    const formattedChar = {
+      'Y': this.year,
+      'y': this.yr < 10 ? '0' + this.yr : this.yr,
+      'M': this.month,
+      'm': this.mon,
+      'D': this.date < 10 ? '0' + this.date : this.date,
+      'd': this.date,
+      'L': this.day,
+      'l': this.dy,
+      '#': this.getOrdinal(this.date),
+      'H': this.hours < 10 ? '0' + this.hours : this.hours,
+      'h': this.hours,
+      'I': this.mins < 10 ? '0' + this.mins : this.mins,
+      'i': this.mins,
+      'S': this.secs < 10 ? '0' + this.secs : this.secs,
+      's': this.secs
+    }
+    return mask.split('').map(char => formattedChar[char] || char).join('');
+  }
+
+  getOrdinal(n) {
+    if (n >= 11 && n <= 13) {
+        return n + 'th';
+    }
+    let v = n % 10;
+    if (v === 1) {
+        return n + 'st';
+    } else if (v === 2) {
+        return n + 'nd';
+    } else if (v === 3) {
+        return n + 'rd';
+    } else {
+        return n + 'th';
+    }
+  }
 }
 
 
 const d = new D();
-console.log(d.year);
-console.log(d.yr);
-console.log(d.month);
-console.log(d.mon);
-console.log(d.day);
-console.log(d.dy);
-console.log(d.date); 
-console.log(d.hours);
-console.log(d.mins);
-console.log(d.secs);
+console.log(d.format());
+console.log(d.format('Y-m-d'));
