@@ -31,7 +31,7 @@ class D {
    * @returns {string} The full name of the month.
    */
   get month() {
-    const monthIndex = this._date.getMonth();
+    const monthIndex = this._date.getMonth() - 1;
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     return monthNames[monthIndex];
   }
@@ -49,7 +49,7 @@ class D {
    * @returns {string} The full name of the day of the week.
    */
   get day() {
-    const dayIndex = this._date.getDay();
+    const dayIndex = this._date.getDay() - 1;
     const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     return dayNames[dayIndex];
   }
@@ -117,10 +117,10 @@ class D {
 
   /**
    * Formats the date according to the given mask.
-   * @param {string} [mask='Y-M-D H:I:S'] - The mask to format the date.
+   * @param {string} [mask='Y-M-D'] - The mask to format the date.
    * @returns {string} The formatted date.
    */
-  format(mask = 'Y-M-D H:I:S') {
+  format(mask = 'Y-M-D') {
     const formattedChar = {
       'Y': this.year,
       'y': this.yr < 10 ? '0' + this.yr : this.yr,
@@ -180,3 +180,5 @@ class D {
     return result + (future ? 'from now' : 'ago');
   }
 }
+
+module.exports = D;

@@ -118,7 +118,7 @@ Formats the date according to the given mask.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [mask] | <code>string</code> | <code>&quot;&#x27;Y-M-D H:I:S&#x27;&quot;</code> | The mask to format the date. |
+| [mask] | <code>string</code> | <code>&quot;&#x27;Y-M-D&#x27;&quot;</code> | The mask to format the date. |
 
 <a name="D+when"></a>
 
